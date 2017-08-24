@@ -6,28 +6,122 @@
     android:layout_height="match_parent"
     tools:context="josh.logme.NewActivity">
 
+    <Button
+        android:id="@+id/btn_getdose"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:onClick="get_dose"
+        android:text="Get Dose"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="107dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="67dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="107dp" />
+
     <LinearLayout
-        android:layout_width="1080px"
-        android:layout_height="1367px"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        android:layout_width="320dp"
+        android:layout_height="325dp"
+        android:orientation="horizontal"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="23dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="8dp"
+        android:id="@+id/linearLayout">
 
-        <NumberPicker
-            android:id="@+id/carb_input"
+        <LinearLayout
+            android:layout_width="152dp"
+            android:layout_height="355dp"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="62dp"
+            tools:layout_editor_absoluteY="36dp">
+
+            <TextView
+                android:id="@+id/txt_carbs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="carbs"
+                tools:layout_editor_absoluteX="77dp"
+                tools:layout_editor_absoluteY="27dp" />
+
+            <NumberPicker
+                android:id="@+id/carb_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp" />
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="202dp"
+            tools:layout_editor_absoluteY="33dp">
 
-        <Button
-            android:id="@+id/get_dose"
+            <TextView
+                android:id="@+id/txt_bg1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Blood"
+                tools:layout_editor_absoluteX="202dp"
+                tools:layout_editor_absoluteY="27dp" />
+
+            <NumberPicker
+                android:id="@+id/bg_input_whole"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Get Dose"
-            android:onClick="get_dose"
-            tools:layout_editor_absoluteX="4dp"
-            tools:layout_editor_absoluteY="203dp" />
+            android:layout_height="207dp"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="202dp"
+            tools:layout_editor_absoluteY="33dp">
+
+            <TextView
+                android:id="@+id/txt_bg2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sugar"
+                tools:layout_editor_absoluteX="202dp"
+                tools:layout_editor_absoluteY="27dp" />
+
+            <NumberPicker
+                android:id="@+id/bg_input_decimal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtDebug"
+        android:layout_width="225dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginLeft="121dp"
+        android:layout_marginRight="120dp"
+        android:layout_marginStart="121dp"
+        android:layout_marginTop="34dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
 </android.support.constraint.ConstraintLayout>
