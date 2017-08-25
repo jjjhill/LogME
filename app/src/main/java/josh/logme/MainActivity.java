@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void open_log(View view) {
-        Intent intent = new Intent(this, NewActivity.class);
+        Intent intent = new Intent(this, LogActivity.class);
         startActivity(intent);
     }
 
