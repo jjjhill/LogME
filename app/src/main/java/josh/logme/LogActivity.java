@@ -2,6 +2,8 @@ package josh.logme;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -12,6 +14,9 @@ import java.io.InputStreamReader;
 public class LogActivity extends AppCompatActivity {
     String FILENAME = "log.txt";
     private static final String TAG = LogActivity.class.getSimpleName();
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
 
     @Override
@@ -33,10 +38,11 @@ public class LogActivity extends AppCompatActivity {
 
             Log.d(TAG, sb.toString());
 
-        }catch (IOException e) {
+        } catch (IOException e) {
             Log.d(TAG, e.toString());
         }
 
         /* ******* */
+
     }
 }

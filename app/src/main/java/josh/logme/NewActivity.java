@@ -27,6 +27,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Date;
 
 
 public class NewActivity extends AppCompatActivity {
@@ -35,6 +36,7 @@ public class NewActivity extends AppCompatActivity {
     public double correctionFactor = 2.0;
     public double targetBG = 6.0;
     public double carb, currentBG, totalDose;
+    public Entry currentEntry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +67,9 @@ public class NewActivity extends AppCompatActivity {
         EditText txt = (EditText) findViewById(R.id.txtCustom);
         txt.setEnabled(false);
 
+        currentEntry = new Entry();
 
-        ratioC2I = 20; //get "carb to insulin ratio" from database
+        ratioC2I = 15; //get "carb to insulin ratio" from file
     }
     public void get_dose (View view) {
         double iDue2Correction, iDue2Carb;
@@ -127,47 +130,43 @@ public class NewActivity extends AppCompatActivity {
         }
 
         /* Save data*/
+        currentEntry.datetime = new Date();
+        currentEntry.bg = currentBG;
+        currentEntry.dose = amount;
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
 
-        String FILENAME = "log.txt";
-
-        //store insulin dosage
-        String data = Double.toString(amount) + "\n";
-
-        FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_APPEND);
-        fos.write(data.getBytes());
-        fos.close();
-
         builder.setTitle("Add a note!").setView(input).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which){
-                String FILENAME = "log.txt";
                 try {
-                    FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_APPEND);
                     //store notes
-                    String notes = input.getText().toString() + "\n";
-                    fos.write(notes.getBytes());
-                    fos.close();
+                    String notes = input.getText().toString();
+                    currentEntry.notes = notes;
+                    writeJson();
+
+                    currentEntry = new Entry(); //erase entry data
+                    open_log();
                 }catch(IOException e){
                     Log.d(TAG, e.toString());
                 }
 
-                open_log();
             }
         }).create();
         builder.show();
 
-
-
-
-
          /* ****** */
 
+    }
 
-
+    public void writeJson() throws IOException{
+        String FILENAME = "log.txt";
+        FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_APPEND);
+        String strEntry = JsonUtil.toJSon(currentEntry) + "\n";
+        fos.write(strEntry.getBytes());
     }
 
     public void open_log(){
@@ -175,6 +174,7 @@ public class NewActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //for debugging
     public void erase_mem(View view) {
         String simpleFileName = "log.txt";
         deleteFile(simpleFileName);
