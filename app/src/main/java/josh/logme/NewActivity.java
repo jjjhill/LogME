@@ -20,7 +20,6 @@ import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -32,11 +31,13 @@ import java.util.Date;
 
 public class NewActivity extends AppCompatActivity {
     private static final String TAG = NewActivity.class.getSimpleName();
-    public int ratioC2I;
-    public double correctionFactor = 2.0;
+    public String SETTINGS_FILE = "Settings.txt";
+    public double ratioC2I;
+    public double correctionFactor;
     public double targetBG = 6.0;
     public double carb, currentBG, totalDose;
     public Entry currentEntry;
+    public Settings settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,15 @@ public class NewActivity extends AppCompatActivity {
 
         currentEntry = new Entry();
 
-        ratioC2I = 15; //get "carb to insulin ratio" from file
+        try {
+            FileInputStream fis = openFileInput(SETTINGS_FILE);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+            settings = JsonUtil.settingsFromJson(br.readLine());
+            ratioC2I = settings.ratio; //get "carb to insulin ratio" from file
+            correctionFactor = settings.correction;
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
     }
     public void get_dose (View view) {
         double iDue2Correction, iDue2Carb;
@@ -130,7 +139,7 @@ public class NewActivity extends AppCompatActivity {
         }
 
         /* Save data*/
-        currentEntry.datetime = new Date();
+        currentEntry.datetime = (new Date()).toString();
         currentEntry.bg = currentBG;
         currentEntry.dose = amount;
 

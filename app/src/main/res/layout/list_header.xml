@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <!-- list_complex.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/headerLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="10dip"
+    android:paddingLeft="15dip"
+    android:paddingTop="10dip">
+
+
+    <TextView
+        android:id="@+id/headerTime"
+        android:layout_width="250px"
+        android:layout_height="50px"
+        android:text="Time"
+        android:textSize="50px"></TextView>
+
+    <TextView
+        android:id="@+id/headerGlucose"
+        android:layout_width="150px"
+        android:layout_height="50px"
+        android:text="Glucose"
+        android:textSize="50px"></TextView>
+
+    <TextView
+        android:id="@+id/headerDose"
+        android:layout_width="150px"
+        android:layout_height="50px"
+        android:text="Dose"
+        android:textSize="50px"></TextView>
+
+    <TextView
+        android:id="@+id/headerNotes"
+        android:layout_width="500px"
+        android:layout_height="50px"
+        android:text="Notes"
+        android:textSize="50px"></TextView>
+
+</LinearLayout>

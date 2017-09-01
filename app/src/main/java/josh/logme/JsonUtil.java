@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.Set;
 
 
 /**
@@ -39,9 +40,44 @@ public class JsonUtil {
             entry.bg = jsonObj.getDouble("glucose");
             entry.dose = jsonObj.getDouble("dose");
             entry.notes = jsonObj.getString("notes");
-            entry.datetime = (Date) jsonObj.get("date");
+            entry.datetime = jsonObj.getString("date");
 
             return entry;
+
+
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String settingsToJSon(Settings settings) {
+        try {
+            // Here we convert Java Object to JSON
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("ratio", settings.ratio); // Set the first name/pair
+            jsonObj.put("correction", settings.correction);
+
+
+            return jsonObj.toString();
+
+        } catch (JSONException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+    public static Settings settingsFromJson(String json) {
+        try {
+            // Here we convert JSON to Java Object
+            JSONObject jsonObj = new JSONObject(json);
+            Settings settings = new Settings();
+            settings.ratio = jsonObj.getDouble("ratio");
+            settings.correction = jsonObj.getDouble("correction");
+
+            return settings;
 
 
         } catch (JSONException ex) {

@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void open_settings(View view) {
-        Intent intent = new Intent(this, NewActivity.class);
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 }

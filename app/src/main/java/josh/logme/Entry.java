@@ -9,7 +9,7 @@ import java.util.Date;
 public class Entry {
     public double bg;
     public double dose;
-    public Date datetime;
+    public String datetime;
     public String notes;
 
     public Entry () {
