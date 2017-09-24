@@ -3,13 +3,10 @@ package josh.logme;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -17,11 +14,9 @@ import android.view.View;
 import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.text.Editable;
+import android.text.TextWatcher;
 
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -41,6 +36,7 @@ public class NewActivity extends AppCompatActivity {
     public double carb, currentBG, totalDose;
     public Entry currentEntry;
     public Settings settings;
+    public EditText txt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +61,14 @@ public class NewActivity extends AppCompatActivity {
         bg2.setValue(0);
         bg2.setWrapSelectorWheel(true);
 
+
         Button btn_save = (Button) findViewById(R.id.btn_save);
         btn_save.setEnabled(false);
 
-        EditText txt = (EditText) findViewById(R.id.txtCustom);
+        txt = (EditText) findViewById(R.id.txtCustom);
         txt.setEnabled(false);
+        /* Set Text Watcher listener */
+        txt.addTextChangedListener(customTextWatcher);
 
         currentEntry = new Entry();
 
@@ -91,6 +90,7 @@ public class NewActivity extends AppCompatActivity {
         NumberPicker bg2 = (NumberPicker) findViewById(R.id.bg_input_decimal);
         NumberPicker carbNP = (NumberPicker) findViewById(R.id.carb_input);
         TextView txtDisplay = (TextView) findViewById(R.id.txtDosage);
+        Button btn_save = (Button) findViewById(R.id.btn_save);
 
         carb = (double)carbNP.getValue();
         currentBG = (double)bg1.getValue() + ((double)bg2.getValue() / 10);
@@ -104,7 +104,6 @@ public class NewActivity extends AppCompatActivity {
         String strTotal = df.format(totalDose);
 
         txtDisplay.setText("You should take " + strTotal + " units of bolus.");
-        Button btn_save = (Button) findViewById(R.id.btn_save);
         btn_save.setEnabled(true);
 
     }
@@ -198,4 +197,30 @@ public class NewActivity extends AppCompatActivity {
         deleteFile(simpleFileName);
 
     }
+
+    private final TextWatcher customTextWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            Button btn_save = (Button) findViewById(R.id.btn_save);
+            TextView txtDisplay = (TextView) findViewById(R.id.txtDosage);
+            if (txt.getText().toString().isEmpty() && txtDisplay.getText().toString().isEmpty()) {
+                btn_save.setEnabled(false);
+            }
+            else {
+                btn_save.setEnabled(true);
+            }
+        }
+
+        public void afterTextChanged(Editable s) {
+        }
+    };
+
+    public void searchMFP(View view) {
+        Intent intent = new Intent(this, MfpActivity.class);
+        startActivity(intent);
+
+    }
+
 }
