@@ -59,6 +59,7 @@ public class JsonUtil {
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("ratio", settings.ratio); // Set the first name/pair
             jsonObj.put("correction", settings.correction);
+            jsonObj.put("target", settings.targetBG);
 
 
             return jsonObj.toString();
@@ -78,6 +79,7 @@ public class JsonUtil {
             Settings settings = new Settings();
             settings.ratio = jsonObj.getDouble("ratio");
             settings.correction = jsonObj.getDouble("correction");
+            settings.targetBG = jsonObj.getDouble("target");
 
             if (json.isEmpty())
                 return null;

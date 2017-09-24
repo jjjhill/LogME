@@ -42,12 +42,13 @@
             android:id="@+id/editCorrection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/txtCorrection"
-            android:layout_alignBottom="@+id/txtCorrection"
-            android:layout_alignLeft="@+id/editRatio"
-            android:layout_alignStart="@+id/editRatio"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:layout_alignBottom="@+id/txtCorrection"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignLeft="@+id/editRatio"
+            android:layout_alignStart="@+id/editRatio" />
 
         <TextView
             android:id="@+id/txtCorrection"
@@ -59,6 +60,28 @@
             android:layout_marginTop="42dp"
             android:text="Correction Factor" />
 
+        <EditText
+            android:id="@+id/editTarget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:layout_alignBottom="@+id/txtTarget"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignLeft="@+id/editCorrection"
+            android:layout_alignStart="@+id/editCorrection" />
+
+        <TextView
+            android:id="@+id/txtTarget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/editCorrection"
+            android:layout_marginTop="42dp"
+            android:text="Target B.G." />
+
         <Button
             android:id="@+id/btnSaveSettings"
             android:layout_width="wrap_content"
@@ -67,6 +90,7 @@
             android:layout_centerHorizontal="true"
             android:text="Save Settings"
             android:onClick="saveSettings"/>
+
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

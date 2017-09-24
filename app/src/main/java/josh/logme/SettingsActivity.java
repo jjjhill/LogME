@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 
 public class SettingsActivity extends AppCompatActivity {
     Settings settings;
-    EditText ratio, correction;
+    EditText ratio, correction, target;
     String SETTINGS_FILE = "Settings.txt";
 
     @Override
@@ -32,10 +32,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         ratio = (EditText) findViewById(R.id.editRatio);
         correction = (EditText) findViewById(R.id.editCorrection);
+        target = (EditText) findViewById(R.id.editTarget);
 
         if (settings != null) {
             ratio.setText(Double.toString(settings.ratio));
             correction.setText(Double.toString(settings.correction));
+            target.setText(Double.toString(settings.targetBG));
         }
         settings = new Settings();
     }
@@ -43,6 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
     public void saveSettings(View view) throws IOException {
         settings.ratio = Double.parseDouble(ratio.getText().toString());
         settings.correction = Double.parseDouble(correction.getText().toString());
+        settings.targetBG = Double.parseDouble(target.getText().toString());
         FileOutputStream fos = openFileOutput(SETTINGS_FILE, Context.MODE_PRIVATE);
         String strEntry = JsonUtil.settingsToJSon(settings);
         fos.write(strEntry.getBytes());

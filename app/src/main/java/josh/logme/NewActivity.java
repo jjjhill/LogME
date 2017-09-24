@@ -1,21 +1,15 @@
 package josh.logme;
 
-import android.animation.TypeConverter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
-import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -34,7 +28,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URLDecoder;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 
@@ -43,13 +37,10 @@ public class NewActivity extends AppCompatActivity {
     public String SETTINGS_FILE = "Settings.txt";
     public double ratioC2I;
     public double correctionFactor;
-    public double targetBG = 6.0;
+    public double targetBG;
     public double carb, currentBG, totalDose;
     public Entry currentEntry;
     public Settings settings;
-    public String pageData = "";
-    public WebView webView;
-    public String url = "https://www.nutritionvalue.org/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,16 +79,11 @@ public class NewActivity extends AppCompatActivity {
             settings = JsonUtil.settingsFromJson(br.readLine());
             ratioC2I = settings.ratio; //get "carb to insulin ratio" from file
             correctionFactor = settings.correction;
+            targetBG = settings.targetBG;
         }catch(Exception e) {
             e.printStackTrace();
         }
 
-
-
-        webView = (WebView) findViewById(R.id.webView1);
-        webView.setWebChromeClient(new WebChromeClient());
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl(url);
     }
     public void get_dose (View view) {
         double iDue2Correction, iDue2Carb;
@@ -114,7 +100,10 @@ public class NewActivity extends AppCompatActivity {
         iDue2Correction = (currentBG - targetBG) / correctionFactor;
         totalDose = iDue2Carb + iDue2Correction;
 
-        txtDisplay.setText("You should take " + totalDose + " units of bolus.");
+        DecimalFormat df = new DecimalFormat("#.#");
+        String strTotal = df.format(totalDose);
+
+        txtDisplay.setText("You should take " + strTotal + " units of bolus.");
         Button btn_save = (Button) findViewById(R.id.btn_save);
         btn_save.setEnabled(true);
 
@@ -208,45 +197,5 @@ public class NewActivity extends AppCompatActivity {
         String simpleFileName = "log.txt";
         deleteFile(simpleFileName);
 
-
-        //set searchbar innerhtml here
-//        webView.loadUrl("javascript:(function(){"+
-//                "l=document.getElementById('food_query');"+
-//                "e=document.createEvent('HTMLEvents');"+
-//                "e.initEvent('click',true,true);"+
-//                "l.dispatchEvent(e);"+
-//                "})()");
-//
-//        Log.d(TAG, "url: " + webView.getUrl());
-//
-//        //String html = URLDecoder.decode(url, "UTF-8").substring(9);
-//
-//        getUrlData urlData = new getUrlData();
-//        urlData.execute();
-    }
-
-    private class getUrlData extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params){
-            Document document = null;
-            Element list;
-
-            String searchPage = "https://www.nutritionvalue.org/";
-            try {
-                document = Jsoup.connect(searchPage).get();
-            }catch(IOException e) {
-                e.printStackTrace();
-            }
-
-            if (document != null)
-                list = document.getElementById("new_food_list");
-            else
-                list = null;
-
-
-            pageData = list.toString();
-            return pageData;
-        }
     }
 }

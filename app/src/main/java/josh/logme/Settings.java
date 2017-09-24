@@ -7,6 +7,7 @@ package josh.logme;
 public class Settings {
     public double ratio;
     public double correction;
+    public double targetBG;
 
     public Settings(){
 
