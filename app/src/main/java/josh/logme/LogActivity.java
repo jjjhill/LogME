@@ -23,9 +23,10 @@ public class LogActivity extends AppCompatActivity {
     public List<Entry> entries = new ArrayList<Entry>();
     private ArrayList<HashMap<String, String>> list;
     public static final String FIRST_COLUMN="Time";
-    public static final String SECOND_COLUMN="Glucose";
+    public static final String SECOND_COLUMN="B.G.";
     public static final String THIRD_COLUMN="Dose";
-    public static final String FOURTH_COLUMN="Notes";
+    public static final String FOURTH_COLUMN="Carbs";
+    public static final String FIFTH_COLUMN="Notes";
 
     HashMap<String,String> hashmap;
 
@@ -69,15 +70,17 @@ public class LogActivity extends AppCompatActivity {
             hashmap.put(FIRST_COLUMN, entry.datetime);
             hashmap.put(SECOND_COLUMN, Double.toString(entry.bg));
             hashmap.put(THIRD_COLUMN, String.format("%.2f", entry.dose));
-            hashmap.put(FOURTH_COLUMN, entry.notes);
+            hashmap.put(FOURTH_COLUMN, Double.toString(entry.carbs));
+            hashmap.put(FIFTH_COLUMN, entry.notes);
             list.add(hashmap);
         }
         //headings added here for now, (because of implementation of ListViewAdapter adding entries in reverse order (newest first))
         hashmap = new HashMap<>();
         hashmap.put(FIRST_COLUMN, "TIME");
-        hashmap.put(SECOND_COLUMN, "GLUCOSE");
+        hashmap.put(SECOND_COLUMN, "B.G.");
         hashmap.put(THIRD_COLUMN, "DOSE");
-        hashmap.put(FOURTH_COLUMN, "NOTES");
+        hashmap.put(FOURTH_COLUMN, "CARB");
+        hashmap.put(FIFTH_COLUMN, "NOTES");
         list.add(hashmap);
     }
 }

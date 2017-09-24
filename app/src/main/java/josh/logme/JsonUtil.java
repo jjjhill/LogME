@@ -20,6 +20,7 @@ public class JsonUtil {
             jsonObj.put("dose", entry.dose);
             jsonObj.put("notes", entry.notes);
             jsonObj.put("date", entry.datetime);
+            jsonObj.put("carbs", entry.carbs);
 
 
             return jsonObj.toString();
@@ -41,6 +42,7 @@ public class JsonUtil {
             entry.dose = jsonObj.getDouble("dose");
             entry.notes = jsonObj.getString("notes");
             entry.datetime = jsonObj.getString("date");
+            entry.carbs = jsonObj.getDouble("carbs");
 
             return entry;
 
@@ -77,6 +79,8 @@ public class JsonUtil {
             settings.ratio = jsonObj.getDouble("ratio");
             settings.correction = jsonObj.getDouble("correction");
 
+            if (json.isEmpty())
+                return null;
             return settings;
 
 

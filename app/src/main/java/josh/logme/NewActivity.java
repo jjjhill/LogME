@@ -7,11 +7,15 @@ import android.content.Intent;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -21,11 +25,16 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URLDecoder;
 import java.util.Date;
 
 
@@ -38,6 +47,9 @@ public class NewActivity extends AppCompatActivity {
     public double carb, currentBG, totalDose;
     public Entry currentEntry;
     public Settings settings;
+    public String pageData = "";
+    public WebView webView;
+    public String url = "https://www.nutritionvalue.org/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +91,13 @@ public class NewActivity extends AppCompatActivity {
         }catch(Exception e) {
             e.printStackTrace();
         }
+
+
+
+        webView = (WebView) findViewById(R.id.webView1);
+        webView.setWebChromeClient(new WebChromeClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl(url);
     }
     public void get_dose (View view) {
         double iDue2Correction, iDue2Carb;
@@ -115,6 +134,7 @@ public class NewActivity extends AppCompatActivity {
         double amount;
         RadioButton rbcustom = (RadioButton) findViewById(R.id.rb_Custom);
         EditText custom = (EditText) findViewById(R.id.txtCustom);
+        NumberPicker carbNP = (NumberPicker) findViewById(R.id.carb_input);
         //custom dosage
         if (rbcustom.isChecked()){
             if (!custom.getText().toString().matches("")) {
@@ -142,7 +162,7 @@ public class NewActivity extends AppCompatActivity {
         currentEntry.datetime = (new Date()).toString();
         currentEntry.bg = currentBG;
         currentEntry.dose = amount;
-
+        currentEntry.carbs = (double)carbNP.getValue();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText input = new EditText(this);
@@ -184,8 +204,49 @@ public class NewActivity extends AppCompatActivity {
     }
 
     //for debugging
-    public void erase_mem(View view) {
+    public void erase_mem(View view) throws IOException{
         String simpleFileName = "log.txt";
         deleteFile(simpleFileName);
+
+
+        //set searchbar innerhtml here
+//        webView.loadUrl("javascript:(function(){"+
+//                "l=document.getElementById('food_query');"+
+//                "e=document.createEvent('HTMLEvents');"+
+//                "e.initEvent('click',true,true);"+
+//                "l.dispatchEvent(e);"+
+//                "})()");
+//
+//        Log.d(TAG, "url: " + webView.getUrl());
+//
+//        //String html = URLDecoder.decode(url, "UTF-8").substring(9);
+//
+//        getUrlData urlData = new getUrlData();
+//        urlData.execute();
+    }
+
+    private class getUrlData extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params){
+            Document document = null;
+            Element list;
+
+            String searchPage = "https://www.nutritionvalue.org/";
+            try {
+                document = Jsoup.connect(searchPage).get();
+            }catch(IOException e) {
+                e.printStackTrace();
+            }
+
+            if (document != null)
+                list = document.getElementById("new_food_list");
+            else
+                list = null;
+
+
+            pageData = list.toString();
+            return pageData;
+        }
     }
 }

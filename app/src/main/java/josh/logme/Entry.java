@@ -11,10 +11,12 @@ public class Entry {
     public double dose;
     public String datetime;
     public String notes;
+    public double carbs;
 
     public Entry () {
         bg = 0;
         dose = 0;
+        carbs = 0;
         notes = "";
     }
 }

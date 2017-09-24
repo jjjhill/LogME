@@ -21,9 +21,10 @@ public class ListViewAdapter extends BaseAdapter{
     public ArrayList<HashMap<String, String>> list;
     Activity activity;
     public static final String FIRST_COLUMN="Time";
-    public static final String SECOND_COLUMN="Glucose";
+    public static final String SECOND_COLUMN="B.G.";
     public static final String THIRD_COLUMN="Dose";
-    public static final String FOURTH_COLUMN="Notes";
+    public static final String FOURTH_COLUMN="Carbs";
+    public static final String FIFTH_COLUMN="Notes";
 
     public ListViewAdapter(Activity activity,ArrayList<HashMap<String, String>> list){
         super();
@@ -51,6 +52,7 @@ public class ListViewAdapter extends BaseAdapter{
         TextView txtSecond;
         TextView txtThird;
         TextView txtFourth;
+        TextView txtFifth;
     }
 
     @Override
@@ -68,7 +70,8 @@ public class ListViewAdapter extends BaseAdapter{
             holder.txtFirst = (TextView) convertView.findViewById(R.id.txtTime);
             holder.txtSecond = (TextView) convertView.findViewById(R.id.txtGlucose);
             holder.txtThird = (TextView) convertView.findViewById(R.id.txtDose);
-            holder.txtFourth = (TextView) convertView.findViewById(R.id.txtNotes);
+            holder.txtFourth = (TextView) convertView.findViewById(R.id.txtCarbs);
+            holder.txtFifth = (TextView) convertView.findViewById(R.id.txtNotes);
 
             convertView.setTag(holder);
         }else{
@@ -81,6 +84,7 @@ public class ListViewAdapter extends BaseAdapter{
         holder.txtSecond.setText(map.get(SECOND_COLUMN));
         holder.txtThird.setText(map.get(THIRD_COLUMN));
         holder.txtFourth.setText(map.get(FOURTH_COLUMN));
+        holder.txtFifth.setText(map.get(FIFTH_COLUMN));
 
         return convertView;
     }

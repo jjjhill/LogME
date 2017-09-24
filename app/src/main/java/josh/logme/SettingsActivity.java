@@ -29,10 +29,14 @@ public class SettingsActivity extends AppCompatActivity {
             settings = JsonUtil.settingsFromJson(br.readLine());
         }catch(Exception e){e.printStackTrace();}
 
+
         ratio = (EditText) findViewById(R.id.editRatio);
-        ratio.setText(Double.toString(settings.ratio));
         correction = (EditText) findViewById(R.id.editCorrection);
-        correction.setText(Double.toString(settings.correction));
+
+        if (settings != null) {
+            ratio.setText(Double.toString(settings.ratio));
+            correction.setText(Double.toString(settings.correction));
+        }
         settings = new Settings();
     }
 

@@ -3,34 +3,47 @@
     android:id="@+id/listItemsLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/txtTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="30px"/>
+        android:layout_weight="2"
+        android:textSize="40px"
+        android:textColor="#00bacc"/>
 
     <TextView
         android:id="@+id/txtGlucose"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="30px" />
+        android:textSize="40px"
+        android:textColor="#2e4cf4"/>
 
     <TextView
         android:id="@+id/txtDose"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="30px"/>
+        android:textSize="40px"
+        android:textColor="#9b48f9"/>
+
+    <TextView
+        android:id="@+id/txtCarbs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="40px"
+        android:textColor="#f94848" />
 
     <TextView
         android:id="@+id/txtNotes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="30px" />
+        android:layout_weight="2"
+        android:textSize="40px"
+        android:textColor="#ed48f9" />
+
 
 </LinearLayout>

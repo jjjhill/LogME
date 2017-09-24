@@ -5,7 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="josh.logme.NewActivity">
+    <WebView
+        android:id="@+id/webView1"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
 
+    </WebView>
     <Button
         android:id="@+id/btn_getdose"
         android:layout_width="150dp"
