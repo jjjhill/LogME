@@ -13,28 +13,28 @@
 
     <TextView
         android:id="@+id/headerTime"
-        android:layout_width="250px"
+        android:layout_width="wrap_content"
         android:layout_height="50px"
         android:text="Time"
         android:textSize="50px"></TextView>
 
     <TextView
         android:id="@+id/headerGlucose"
-        android:layout_width="150px"
+        android:layout_width="wrap_content"
         android:layout_height="50px"
         android:text="Glucose"
         android:textSize="50px"></TextView>
 
     <TextView
         android:id="@+id/headerDose"
-        android:layout_width="150px"
+        android:layout_width="wrap_content"
         android:layout_height="50px"
         android:text="Dose"
         android:textSize="50px"></TextView>
 
     <TextView
         android:id="@+id/headerNotes"
-        android:layout_width="500px"
+        android:layout_width="wrap_content"
         android:layout_height="50px"
         android:text="Notes"
         android:textSize="50px"></TextView>
